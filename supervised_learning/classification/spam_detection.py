@@ -77,6 +77,6 @@ spam_pipeline = Pipeline(steps=[
 
 spam_pipeline.fit(X_train, y_train)
 
-prediction = spam_pipeline.predict(['Happy 4th! (A gift inside)'])
+prediction = spam_pipeline.predict(['Please collect you parcel'])
 
 print(f'Accuracy = {prediction}')
