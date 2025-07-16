@@ -82,3 +82,6 @@ if __name__ == '__main__':
     prediction = pipeline.predict(single_image_features)[0]
 
     print(f'Predicted flower: {prediction}')
+
+# Problem: yellow rose = sunflower & red sunflower = rose
+# Find a fix!
