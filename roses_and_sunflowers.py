@@ -35,9 +35,10 @@ def process_and_load_images():
     for flower_class in CLASSES:
         class_dir = os.path.join(DATA_DIR, flower_class)
         for img_name in os.listdir(class_dir):
+            if not img_name.lower().endswith(('.png', '.jpg', '.jpeg')):
+                continue  # Skip non-image files like .DS_Store
             img_path = os.path.join(class_dir, img_name)
-            img = Image.open(img_path).convert('L')
-            img = img.resize((64,64))
+            img = Image.open(img_path).resize((128, 128))  # Keep original size or resize smaller
             img_vector = np.array(img).flatten()
             features.append(img_vector)
             labels.append(flower_class)
@@ -46,7 +47,7 @@ def process_and_load_images():
     return df
 
 if __name__ == '__main__':
-    generate_synthetic_images()
+    # generate_synthetic_images()
     flower_dataset = process_and_load_images()
     print('\nDataFrame Head:')
     print(flower_dataset.head())
@@ -66,19 +67,17 @@ if __name__ == '__main__':
     print(f'Accuracy: {accuracy:.2f}')
     print(classification_report(y_test, y_pred))
 
-    # Custom Testing
-    test_img = Image.new('RGB', (64, 64), 'black')
-    draw = ImageDraw.Draw(test_img)
-    # Create synthetic image here
-    draw.rectangle([(10, 10), (54, 54)], fill='#FFD700', outline='#FFD700')
-    test_img.save('test.png')
-    test_img = Image.open('test.png').convert('L')
-    test_img = test_img.resize((64, 64))
+    # # Custom Testing
+    # test_img = Image.new('RGB', (64, 64), 'black')
+    # draw = ImageDraw.Draw(test_img)
+    # # Create synthetic image here
+    # draw.rectangle([(10, 10), (54, 54)], fill='#FFD700', outline='#FFD700')
+    # test_img.save('test.png')
+    test_img = Image.open('test_3.jpeg').resize((128, 128))  # Keep original size or resize smaller
     test_img_vector = np.array(test_img).flatten()
 
 
     single_image_features = [test_img_vector]
-    single_image_label = y_test.iloc[20]
 
     prediction = pipeline.predict(single_image_features)[0]
 
