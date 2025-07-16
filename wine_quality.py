@@ -85,3 +85,4 @@ analysis_df['discovered_cluster'] = discovered_clusters
 #Interesting Part! Seeing how the clusters align with quality
 cluster_quality_analysis = pd.crosstab(analysis_df['discovered_cluster'], analysis_df['is_good_wine'])
 print(cluster_quality_analysis)
+
