@@ -66,10 +66,10 @@ if __name__ == '__main__':
     print(f'Accuracy: {accuracy:.2f}')
     print(classification_report(y_test, y_pred))
 
-    # Custom testing
+    # Custom Testing
     test_img = Image.new('RGB', (64, 64), 'black')
     draw = ImageDraw.Draw(test_img)
-    # Create custom synthetic image here
+    # Create synthetic image here
     draw.rectangle([(10, 10), (54, 54)], fill='#FFD700', outline='#FFD700')
     test_img.save('test.png')
     test_img = Image.open('test.png').convert('L')
