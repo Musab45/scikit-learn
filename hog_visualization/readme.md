@@ -5,7 +5,7 @@ This project demonstrates how to extract **Histogram of Oriented Gradients (HOG)
 ## Example Output
 
 ![HOG Visualization](https://github.com/Musab45/scikit-learn/raw/main/hog_visualization/hog_visualization_1.png)
-![HOG Visualization](https://github.com/Musab45/scikit-learn/raw/main/hog_visualization/hog_visualization_2.png)
+![HOG Visualization 2](https://github.com/Musab45/scikit-learn/raw/main/hog_visualization/hog_visualization_2.png)
 
 
 ## How It Works
