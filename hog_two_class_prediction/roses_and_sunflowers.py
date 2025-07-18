@@ -8,7 +8,7 @@ from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
-from skimage.feature import hog  # <-- Import HOG
+from skimage.feature import hog
 from skimage import io, color, transform
 
 CLASSES = ['rose', 'sunflower']
@@ -38,18 +38,13 @@ def process_and_load_images():
 
             img = io.imread(img_path)
 
-            # --- FIX STARTS HERE ---
-            # 1. Resize the image to a fixed size
             img_resized = transform.resize(img, image_size)
 
-            # 2. Convert the *resized* image to grayscale
             img_gray = color.rgb2gray(img_resized)
-            # --- FIX ENDS HERE ---
 
-            # Now, HOG will always produce a vector of the same length
             hog_features = hog(img_gray,
-                               pixels_per_cell=(8, 8),  # <-- Try a smaller cell size
-                               cells_per_block=(2, 2),  # <-- Use 2x2 blocks to make it more robust
+                               pixels_per_cell=(8, 8),
+                               cells_per_block=(2, 2),
                                visualize=False,
                                channel_axis=None)
 
@@ -78,7 +73,6 @@ if __name__ == '__main__':
         pipeline = Pipeline([
             ('scaler', StandardScaler()),
             ('classification', LogisticRegression(solver='liblinear', C=1.0))
-            # C is a regularization parameter you can tune
         ])
 
         pipeline.fit(X_train, y_train)
@@ -88,23 +82,20 @@ if __name__ == '__main__':
         print('\nClassification Report:')
         print(classification_report(y_test, y_pred))
 
-        # --- Custom Testing with HOG ---
         try:
             test_img_path = 'test_3.jpeg'
-            img = io.imread(test_img_path)
+            test_img = io.imread(test_img_path)
 
-            image_size = (128, 128)
-            img_resized = transform.resize(img, image_size)
-            img_gray = color.rgb2gray(img_resized)
+            test_image_size = (128, 128)
+            test_img_resized = transform.resize(test_img, test_image_size)
+            test_img_gray = color.rgb2gray(test_img_resized)
 
-            # Make sure these HOG parameters MATCH your training function
-            single_image_features = hog(img_gray,
-                                        pixels_per_cell=(8, 8),  # <-- Update this
-                                        cells_per_block=(2, 2),  # <-- Update this
+            single_image_features = hog(test_img_gray,
+                                        pixels_per_cell=(8, 8),
+                                        cells_per_block=(2, 2),
                                         visualize=False,
                                         channel_axis=None)
 
-            # The feature vector will now have the correct shape (8100,)
             prediction = pipeline.predict([single_image_features])
             print(f'\nPredicted flower for {test_img_path}: {prediction[0]}')
 
