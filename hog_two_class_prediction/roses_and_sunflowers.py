@@ -83,7 +83,7 @@ if __name__ == '__main__':
         print(classification_report(y_test, y_pred))
 
         try:
-            test_img_path = 'test_3.jpeg'
+            test_img_path = 'test_2.jpeg'
             test_img = io.imread(test_img_path)
 
             test_image_size = (128, 128)

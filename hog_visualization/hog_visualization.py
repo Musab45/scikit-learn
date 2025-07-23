@@ -8,7 +8,7 @@ import numpy as np
 # The visualization shows how HOG captures shape and texture
 # by showing the direction of intensity changes (gradients) in the image.
 
-image = data.astronaut()
+image = data.coffee()
 print(f"Image loaded. Shape: {image.shape}")
 
 # HOG Features and Visualization
