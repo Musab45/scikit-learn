@@ -9,7 +9,7 @@ import joblib
 # --- 1. CONFIGURATION ---
 
 # Path to your saved model file from the training script
-MODEL_PATH = 'animal_prediction.joblib'
+MODEL_PATH = 'plane_prediction.joblib'
 
 # The same image size used during training
 IMAGE_SIZE = (128, 128)
@@ -45,9 +45,10 @@ def predict_pokeball_type(image_path, model):
         # Step B: Extract HOG features (parameters must match training)
         # These parameters are copied from your training script.
         hog_features = hog(image_array,
-                           orientations=9,
-                           pixels_per_cell=(8,8),
+                           orientations=20,
+                           pixels_per_cell=(16,16),
                            cells_per_block=(2, 2),
+                           block_norm='L2-Hys',
                            visualize=False)
 
         # The model expects a 2D array, so we reshape our 1D feature vector
@@ -76,7 +77,7 @@ if __name__ == '__main__':
         print("✅ Model loaded successfully.")
 
         # --- Make a Prediction ---
-        TEST_IMAGE_PATH = 'tests/dog_test.png'
+        TEST_IMAGE_PATH = 'tests/su35_test.jpeg'
 
         print(f"\nPredicting type for image: '{TEST_IMAGE_PATH}'...")
         predicted_class, class_probabilities = predict_pokeball_type(TEST_IMAGE_PATH, loaded_model)

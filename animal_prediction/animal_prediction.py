@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
 
 
-CLASSES = ['cats', 'dogs', 'horses']
+CLASSES = ['f22', 'j10', 'su35']
 NUM_OF_IMAGES_PER_CLASS = 200
 DATA_DIR = 'data'
 
@@ -34,8 +34,8 @@ def load_and_process_images():
 
             hog_features = hog(
                 img_gray,
-                orientations = 9,
-                pixels_per_cell = (8, 8),
+                orientations = 20,
+                pixels_per_cell = (16, 16),
                 cells_per_block = (2, 2),
                 block_norm='L2-Hys',
                 visualize = False,
@@ -81,7 +81,7 @@ if __name__ == '__main__':
         print("\nClassification Report:")
         print(classification_report(y_test, y_pred, target_names=CLASSES))
 
-        MODEL_FILENAME = 'animal_prediction.joblib'
+        MODEL_FILENAME = 'plane_prediction.joblib'
         print(f"\nSaving the final trained model to '{MODEL_FILENAME}'...")
         joblib.dump(pipeline, MODEL_FILENAME)
         print("✅ Model saved successfully.")
